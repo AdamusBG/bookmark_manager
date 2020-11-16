@@ -1,10 +1,16 @@
 require 'sinatra/base'
+require_relative './lib/bookmark'
 
 class BookmarkManager < Sinatra::Base
   enable :sessions # for session variables
 
   get '/' do
     erb(:hello_world)
+  end
+
+  get '/bookmarks' do
+    @bookmarks = Bookmark.all
+    erb(:bookmarks)
   end
 
   # start the server if ruby file executed directly
