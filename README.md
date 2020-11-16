@@ -2,7 +2,7 @@
 
 This is my solution to [this](https://github.com/makersacademy/course/blob/master/bookmark_manager/00_challenge_map.md) challenge.
 
-User stories:
+## User stories
 
 As a user  
 So I can easily find my favourite pages  
@@ -37,3 +37,14 @@ I want to be able to filter bookmarks by tag
 As a user  
 So I can have privacy  
 I want my bookmarks to be only available to me  
+
+
+### To set up the database
+
+Connect to `psql` and create the `bookmark_manager` database:
+
+```
+CREATE DATABASE bookmark_manager;
+```
+
+To set up the appropriate tables, connect to the database in `psql` and run the SQL scripts in the `db/migrations` folder in the given order.
