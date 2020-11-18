@@ -1,19 +1,24 @@
 require_relative "../../app"
 
 feature BookmarkManager, type: :feature do
+
   scenario "returns a list of bookmarks" do
-
-
-    connection = PG.connect(dbname: 'bookmark_manager_test')
-
     #adding test data
-    connection.exec("INSERT INTO bookmarks (url) VALUES ('http://www.makersacademy.com');")
-    connection.exec("INSERT INTO bookmarks (url) VALUES('http://www.destroyallsoftware.com');")
-    connection.exec("INSERT INTO bookmarks (url) VALUES('http://www.google.com');")
+    Bookmark.add('http://www.makersacademy.com')
+    Bookmark.add('http://www.destroyallsoftware.com')
+    Bookmark.add('http://www.google.com')
 
-    visit('/bookmarks')
+    visit('/')
     expect(page).to have_content('http://www.makersacademy.com')
     expect(page).to have_content('http://www.destroyallsoftware.com')
     expect(page).to have_content('http://www.google.com')
+  end
+
+
+  scenario "returns a list of bookmarks" do
+    visit('/add_bookmark')
+    fill_in('url', with: 'www.reddit.com' )
+    click_button('Save page')
+    expect(page).to have_content('www.reddit.com')
   end
 end

@@ -5,14 +5,22 @@ class BookmarkManager < Sinatra::Base
   enable :sessions # for session variables
 
   get '/' do
-    erb(:hello_world)
+    redirect('/bookmarks')
   end
 
   get '/bookmarks' do
-
-    p ENV
     @bookmarks = Bookmark.all
     erb(:bookmarks)
+  end
+
+  # the post version below is accessed when adding a new url then redirects to get version
+  post '/bookmarks' do
+    Bookmark.add(params[:url])
+    redirect '/bookmarks'
+  end
+
+  get '/add_bookmark' do
+    erb(:add_bookmark)
   end
 
   # start the server if ruby file executed directly
