@@ -1,6 +1,21 @@
 require 'capybara/rspec'
 require 'simplecov'
 require 'simplecov-console'
+require_relative './setup_test_database'
+
+# setting environment variable 'ENVIRONMENT' to test when rspec is running
+
+ENV['ENVIRONMENT'] = 'test'
+
+# setting up test database
+
+RSpec.configure do |config|
+  config.before(:each) do
+    setup_test_database
+  end
+end
+
+# simple cov stuff
 
 SimpleCov.formatter = SimpleCov::Formatter::MultiFormatter.new([
   SimpleCov::Formatter::Console,
@@ -18,7 +33,6 @@ RSpec.configure do |config|
     puts "\e[33mTry it now! Just run: rubocop\e[0m"
   end
 end
-
 
 # Setting environmental variable RACK_ENV
 ENV['RACK_ENV'] = 'test'
