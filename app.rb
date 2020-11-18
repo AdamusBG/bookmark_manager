@@ -15,7 +15,7 @@ class BookmarkManager < Sinatra::Base
 
   # the post version below is accessed when adding a new url then redirects to get version
   post '/bookmarks' do
-    Bookmark.add(params[:url])
+    Bookmark.add(params[:url], params[:title])
     redirect '/bookmarks'
   end
 
