@@ -16,7 +16,7 @@ feature BookmarkManager, type: :feature do
 
 
   scenario "returns a list of bookmarks" do
-    visit('/add_bookmark')
+    visit('/bookmarks/new')
     fill_in('url', with: 'www.reddit.com' )
     fill_in('title', with: 'Reddit' )
     click_button('Save page')
