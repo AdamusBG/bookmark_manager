@@ -1,7 +1,11 @@
 require 'bookmark'
 
 describe Bookmark do
-  subject { Bookmark.new("title", "url") }
+  subject { Bookmark.new(1, "title", "url") }
+
+  it "Correctly returns its id" do
+    expect(subject.id).to eq(1)
+  end
 
   it "Correctly returns its title" do
     expect(subject.title).to eq("title")
@@ -34,5 +38,11 @@ describe Bookmark do
     expect(bookmarks.first.url).to eq("www.reddit.com")
 
     expect(bookmarks.first).to be_instance_of(Bookmark)
+  end
+
+  it "Correctly deletes an item from the database when delete method is called" do
+    Bookmark.add("www.reddit.com", "Reddit")
+    bookmarks = Bookmark.all
+    expect { Bookmark.delete(bookmarks.first.id) }.to change { Bookmark.all.length }.by(-1)
   end
 end

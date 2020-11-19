@@ -2,7 +2,7 @@ require 'sinatra/base'
 require_relative './lib/bookmark'
 
 class BookmarkManager < Sinatra::Base
-  enable :sessions # for session variables
+  enable :sessions, :method_override # for session variables & _method hack
 
   get '/' do
     redirect('/bookmarks')
@@ -21,6 +21,12 @@ class BookmarkManager < Sinatra::Base
 
   get '/bookmarks/new' do
     erb(:add_bookmark)
+  end
+
+  delete '/bookmarks/:id' do
+    p "we got here"
+    Bookmark.delete(params[:id])
+    redirect '/bookmarks'
   end
 
   # start the server if ruby file executed directly
